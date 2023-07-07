@@ -1,0 +1,49 @@
+﻿@using SummerCamp.DataModels.Models;
+@model IEnumerable<CoachViewModel>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="~/css/coach_style.css" />
+</head>
+<body>
+	<div class="grid-container">
+        @foreach (var item in Model)
+        {
+            <div class="grid-item">
+                <div class="row">
+                    <div class="column">
+                        <div class="image-container">
+                            <div class="tag">Coach</div>
+                            <img src="~/assets//uploads/@item.Picture" alt="Coach profile picture" class="coach-image">
+                         </div>
+                    </div>
+                    <div class="column">
+                        <div class="info">
+                            <h1>@item.FullName</h1>
+                            <div class="row">
+                                @*<div class="column">
+                                    <img src="~/assets//uploads/@item.Country.Flag" alt="Country flag" class="country-flag">
+                                </div>*@
+                                @*<div class="column">
+                                    <h2>@item.Country.Name</h2>
+                                </div>*@
+                            </div>
+                            <div class="row">
+                                <h2>Age: @item.Age</h2>
+                            </div>
+                            <div class="row">
+                                <h2>Current Team: @item.Team?.Name</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+	</div>
+</body>
+</html>
