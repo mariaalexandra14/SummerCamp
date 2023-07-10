@@ -18,14 +18,5 @@ namespace SummerCamp.Models
         public TeamViewModel Team { get; set; }
 
         public int? TeamId { get; set; }
-
-        public string? GetImagePath()
-        {
-            var uploadsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "uploads");
-            Directory.CreateDirectory(uploadsFolder);
-            string? uniqueFileName = Guid.NewGuid().ToString() + "_" + Picture;
-
-            return Path.Combine(uploadsFolder, uniqueFileName);
-        }
     }
 }

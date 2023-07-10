@@ -13,10 +13,13 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<SummerCampDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SummerCamp")));
 
-//builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 builder.Services.AddScoped<ICoachRepository, CoachRepository>();
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+builder.Services.AddScoped<ISponsorRepository, SponsorRepository>();
+builder.Services.AddScoped<ICompetitionRepository, CompetitionRepository>();
 
 var mapperConfig = new MapperConfiguration(mc =>
 {

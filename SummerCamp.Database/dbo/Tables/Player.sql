@@ -7,6 +7,7 @@
     [ShirtNumber] INT           NULL,
     [TeamId]      INT           NULL,
     [CountryId]   INT           NULL,
+    [Picture] VARCHAR(255) NULL, 
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([CountryId]) REFERENCES [dbo].[Country] ([Id]),
     FOREIGN KEY ([TeamId]) REFERENCES [dbo].[Team] ([Id]),

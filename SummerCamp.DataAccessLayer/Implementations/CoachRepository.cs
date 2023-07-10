@@ -14,5 +14,10 @@ namespace SummerCamp.DataAccessLayer.Implementations
         {
             return _context.Set<Coach>().Include(c => c.Country).Include(c => c.Team).ToList();
         }
+
+        public Coach? GetWithCountryAndTeam(int id)
+        {
+            return _context.Set<Coach>().Include(c => c.Country).Include(c => c.Team).SingleOrDefault(c => c.Id == id);
+        }
     }
 }

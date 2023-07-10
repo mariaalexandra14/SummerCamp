@@ -10,6 +10,6 @@ namespace SummerCamp.DataAccessLayer.Interfaces
         void Delete(T entity);
         IList<T> Get(Expression<Func<T, bool>> expression);
         T Add(T entity);
-        Task Save();
+        void Save();
     }
 }

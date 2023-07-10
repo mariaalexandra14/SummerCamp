@@ -33,15 +33,21 @@ namespace SummerCamp.Controllers
         // GET: Coaches/Create
         public IActionResult Create()
         {
-            ViewData["Teams"] = new SelectList(_teamRepository.GetAll(), "Id", "Name");
-            ViewData["Countries"] = new SelectList(_countryRepository.GetAll(), "Id", "Name");
+            List<SelectListItem> teams = new SelectList(_teamRepository.GetAll(), "Id", "Name").ToList();
+            teams.Insert(0, (new SelectListItem { Text = "Without team", Value = "0" }));
+            ViewData["Teams"] = teams;
+
+            List<SelectListItem> countries = new SelectList(_countryRepository.GetAll(), "Id", "Name").ToList();
+            countries.Insert(0, (new SelectListItem { Text = "Unknown", Value = "0" }));
+            ViewData["Countries"] = countries;
+
             return View();
         }
 
         // POST: Coaches/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CoachViewModel coachViewModel, int countryId, int teamId, [FromForm] IFormFile photo)
+        public async Task<IActionResult> Create(CoachViewModel coachViewModel, [FromForm] IFormFile photo)
         {
             //if ModelState.IsValid
             if (photo != null && photo.Length > 0)
@@ -55,19 +61,34 @@ namespace SummerCamp.Controllers
 
                 coachViewModel.Picture = fileName;
             }
+            if (coachViewModel.CountryId == 0)
+            {
+                coachViewModel.CountryId = null;
+            }
+            if (coachViewModel.TeamId == 0)
+            {
+                coachViewModel.TeamId = null;
+            }
 
             _coachRepository.Add(_mapper.Map<Coach>(coachViewModel));
+            _coachRepository.Save();
+
             return RedirectToAction(nameof(Index));
         }
 
 
         // GET: Coaches/Edit/{id}
-        public IActionResult Edit(int coachId)
+        public IActionResult Edit(int Id)
         {
-            //ViewData["Teams"] = new SelectList(_teamRepository.GetAll(), "Id", "Name");
-            //ViewData["Countries"] = new SelectList(_countryRepository.GetAll(), "Id", "Name");
+            List<SelectListItem> teams = new SelectList(_teamRepository.GetAll(), "Id", "Name").ToList();
+            teams.Insert(0, (new SelectListItem { Text = "Without team", Value = "0" }));
+            ViewData["Teams"] = teams;
 
-            var coach = _coachRepository.GetById(coachId);
+            List<SelectListItem> countries = new SelectList(_countryRepository.GetAll(), "Id", "Name").ToList();
+            countries.Insert(0, (new SelectListItem { Text = "Unknown", Value = "0" }));
+            ViewData["Countries"] = countries;
+
+            var coach = _coachRepository.GetById(Id);
 
             return View(_mapper.Map<CoachViewModel>(coach));
         }
@@ -79,8 +100,37 @@ namespace SummerCamp.Controllers
         {
             _coachRepository.Update(_mapper.Map<Coach>(coachViewModel));
 
-            return View(coachViewModel);
+            _coachRepository.Save();
+
+            return RedirectToAction(nameof(Index));
         }
 
+        // GET: Coaches/Delete/5
+        public IActionResult Delete(int id)
+        {
+            var coach = _coachRepository.GetWithCountryAndTeam(id);
+
+            if (coach == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(_mapper.Map<CoachViewModel>(coach));
+        }
+
+        // POST: Coaches/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(CoachViewModel coachViewModel)
+        {
+            if (coachViewModel != null)
+            {
+                _coachRepository.Delete(_mapper.Map<Coach>(coachViewModel));
+                _coachRepository.Save();
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
     }
 }

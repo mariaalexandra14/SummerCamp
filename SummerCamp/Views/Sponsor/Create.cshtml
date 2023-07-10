@@ -1,0 +1,39 @@
+﻿@using SummerCamp.DataModels.Models;
+@model SponsorViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/create_player.css" asp-append-version="true" />
+</head>
+
+
+<div class="wrapper">
+    <div class="country-form">
+        <h1 class="text">Create sponsor</h1>
+        <hr />
+        <form asp-action="Create" asp-controller="Sponsor" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

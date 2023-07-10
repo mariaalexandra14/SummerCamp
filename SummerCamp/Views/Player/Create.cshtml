@@ -1,0 +1,73 @@
+﻿@using SummerCamp.DataModels.Models;
+@model PlayerViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/create_player.css" asp-append-version="true" />
+</head>
+
+
+<div class="wrapper">
+    <div class="country-form">
+        <h1 class="text">Create player</h1>
+        <hr />
+        <form asp-action="Create" asp-controller="Player" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthDate" class="control-label"></label>
+                <input asp-for="BirthDate" type="date" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Position" class="control-label"></label>
+                <input asp-for="Position" class="form-control" />
+                <span asp-validation-for="Position" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShirtNumber" class="control-label"></label>
+                <input asp-for="ShirtNumber" class="form-control" />
+                <span asp-validation-for="ShirtNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeamId" class="control-label"></label>
+                @Html.DropDownList("TeamId", (IEnumerable<SelectListItem>) ViewData["Teams"], "Select a team", new { @class = "form-control" })
+                <span asp-validation-for="TeamId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CountryId" class="control-label">Country Name</label>
+                @Html.DropDownList("CountryId", (IEnumerable<SelectListItem>) ViewData["Countries"], "Select a country", new { @class = "form-control" })
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Picture" class="text">Profile picture</label>
+                <input type="file" class="form-control-file" name="photo">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

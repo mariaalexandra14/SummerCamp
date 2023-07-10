@@ -1,0 +1,114 @@
+﻿* {
+    user-select: none;
+    margin: 0;
+    padding: 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 150px 150px 150px 150px 150px 150px;
+    margin-top: 20px;
+    position: relative;
+    gap: 10px;
+}
+
+.wrapper {
+    border: 2px solid black;
+    margin-top: 10px;
+}
+
+.player-image {
+    height: 100px;
+    background-size: cover;
+    object-fit: cover;
+}
+
+.player-details {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-left: 5px;
+}
+
+.country-flag {
+    max-width: 20px;
+    max-height: auto;
+    float: left;
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
+.player-name {
+    font-size: 12pt;
+    font-family: 'Calisto MT';
+    margin-left: 10px;
+    margin-top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.image-container {
+    position: relative;
+}
+
+.tag {
+    float: left;
+    position: absolute;
+    background-color: #92AD40;
+    padding: 6px;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.column {
+    float: left;
+}
+
+.more-icon {
+    position: absolute;
+    margin-top: 20px;
+    margin-right: 5px;
+    float: right;
+}
+
+.kebab-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.more-icon {
+    color: #000;
+    cursor: pointer;
+}
+
+.menu-options {
+    position: absolute;
+    top: 25px;
+    right: -10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    display: none;
+}
+
+.menu-options ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-options ul li {
+    margin-bottom: 5px;
+}
+
+.menu-options ul li a {
+    color: #000;
+    text-decoration: none;
+}
+
+.menu-options ul li a:hover {
+    text-decoration: underline;
+}

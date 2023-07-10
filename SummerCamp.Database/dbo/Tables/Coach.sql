@@ -10,3 +10,12 @@
     FOREIGN KEY ([TeamId]) REFERENCES [dbo].[Team] ([Id])
 );
 
+
+
+
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [IX_Coach_TeamId]
+    ON [dbo].[Coach]([TeamId] ASC) WHERE ([TeamId] IS NOT NULL);
+

@@ -1,5 +1,124 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SummerCamp.DataModels.Models;
+@model IEnumerable<TeamViewModel>
+
 @{
+    ViewData["Title"] = "Index";
 }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/team_style.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        .button-1 {
+                    background-color: #92AD40;
+                    border-radius: 8px;
+                    border-style: none;
+                    box-sizing: border-box;
+                    color: #FFFFFF;
+                    cursor: pointer;
+                    display: inline-block;
+                    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                    font-size: 14px;
+                    font-weight: 500;
+                    height: 40px;
+                    padding: 10px 16px;
+                    text-align: center;
+                    text-decoration: none;
+                    transition: color 100ms;
+                    touch-action: manipulation;
+                    margin-left: 900px;
+                    margin-top: 20px;
+        }
+
+        .button-1:hover,
+        .button-1:focus {
+            background-color: #879f3e;
+        }
+    </style>
+</head>
+<body>
+    <button class="button-1" onclick="location.href='@Url.Action("Create", "Team")'">Creaza echipa</button>
+    <br />
+    @foreach (var team in Model)
+    {
+        <div class="container wrapper">
+            <div class="column left">
+                <div class="grid-container">
+                    @foreach (var player in team.Players)
+                    {
+                        <div class="grid-item">
+                            <div class="image-container">
+                                <div class="tag">@player.Position</div>
+                                <img src="~/assets//uploads/@player.Picture" class="player-image">
+                            </div>
+                            <div class="player-details">
+                                <div class="column">
+                                    <img src="~/assets//uploads/@player.Country.Flag" class="country-flag">
+                                </div>
+                                <div class="column">
+                                    <h2 class="player-name">@player.Name</h2>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <h1 style="font-family: 'Calisto MT'; font-size: 16pt">@team.Name (@team.NickName)</h1>
+               @* @if (team.Coach != null)
+                {
+                    <h2 style="font-family: 'Calisto MT'; font-size: 16pt">Coach: @team.Coach.FullName</h2>
+                }
+                else
+                {
+                    <h2 style="font-family: 'Calisto MT'; font-size: 16pt">Coach: Without coach</h2>
+                }*@
+            </div>
+            <div class="column right">
+                <div class="kebab-menu">
+                    <i class="more-icon glyphicon glyphicon-option-vertical" style="font-size: 16pt;" id="more-icon-@team.Id" onclick="openMenu(@team.Id)"></i>
+                    <div class="menu-options" id="menu-options-@team.Id">
+                        <ul>
+                            <li class="nav-item">
+                                <a asp-action="Edit" asp-controller="Team" asp-route-id="@team.Id">Editeaza</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-action="Delete" asp-controller="Team" asp-route-id="@team.Id">Sterge</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+
+@section scripts {
+
+    <script>
+        function openMenu(id)  {
+            var menuOptions = document.getElementById("menu-options-" + id);
+
+            menuOptions.style.display = (menuOptions.style.display === 'block') ? 'none' : 'block';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('click', function (event) {
+                var menuOptionsList = document.querySelectorAll('.menu-options');
+
+                menuOptionsList.forEach(menuOptions => {
+                    var id = menuOptions.id.replace('menu-options-', '');
+
+                    var moreIcon = document.getElementById("more-icon-" + id);
+
+
+                    if (!moreIcon.contains(event.target) && !menuOptions.contains(event.target)) {
+                        menuOptions.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+    </script>
+}
+</html>

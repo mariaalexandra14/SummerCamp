@@ -21,6 +21,8 @@ public partial class Player
 
     public int? CountryId { get; set; }
 
+    public string? Picture { get; set; }
+
     public virtual Country? Country { get; set; }
 
     public virtual Team? Team { get; set; }

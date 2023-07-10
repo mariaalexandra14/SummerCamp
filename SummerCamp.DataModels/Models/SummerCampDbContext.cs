@@ -44,6 +44,10 @@ public partial class SummerCampDbContext : DbContext
 
             entity.ToTable("Coach");
 
+            entity.HasIndex(e => e.TeamId, "IX_Coach_TeamId")
+                .IsUnique()
+                .HasFilter("([TeamId] IS NOT NULL)");
+
             entity.Property(e => e.FullName)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -55,8 +59,8 @@ public partial class SummerCampDbContext : DbContext
                 .HasForeignKey(d => d.CountryId)
                 .HasConstraintName("FK__Coach__CountryId__571DF1D5");
 
-            entity.HasOne(d => d.Team).WithMany(p => p.Coaches)
-                .HasForeignKey(d => d.TeamId)
+            entity.HasOne(d => d.Team).WithOne(p => p.Coach)
+                .HasForeignKey<Coach>(d => d.TeamId)
                 .HasConstraintName("FK__Coach__TeamId__59063A47");
         });
 
@@ -148,6 +152,9 @@ public partial class SummerCampDbContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.BirthDate).HasColumnType("date");
             entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.Picture)
                 .HasMaxLength(255)
                 .IsUnicode(false);
 

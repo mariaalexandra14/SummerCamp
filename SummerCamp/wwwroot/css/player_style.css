@@ -1,0 +1,152 @@
+﻿* {
+    user-select: none;
+}
+
+@font-face {
+    font-family: "Berlin";
+    src: url(../assets/fonts/Berlin.ttf);
+}
+
+@font-face {
+    font-family: "Calisto";
+    src: url(../assets/fonts/Calisto.ttf);
+}
+
+.column {
+    float: left;
+}
+
+.left {
+    width: 40%;
+}
+
+.right {
+    width: 5%;
+}
+
+.middle {
+    width: 55%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 450px));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.grid-item {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    height: 250px;
+    display: flex;
+}
+
+.coach-image {
+    width: 100%;
+    height: 250px;
+    background-size: cover;
+    object-fit: cover;
+}
+
+.image-container {
+    position: relative;
+}
+
+.tag {
+    float: left;
+    position: absolute;
+    top: 0px;
+    z-index: 1000;
+    background-color: #92AD40;
+    padding: 6px;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+
+.info {
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    position: relative;
+}
+
+.info h1 {
+    font-family: Berlin;
+    font-size: 20pt;
+    white-space: nowrap;
+}
+
+.coach_info {
+    text-align: left;
+    font-family: 'Calisto MT';
+    font-size: 16pt;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.more-icon {
+    position: absolute;
+    margin-top: 10px;
+    margin-right: 5px;
+    float: right;
+}
+
+.country-details {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 40px 5px;
+}
+
+.country-flag {
+    max-width: 30px;
+    max-height: 100%;
+}
+
+.country-name {
+    font-size: 18pt;
+    font-family: 'Calisto MT';
+    margin-bottom: 16px;
+}
+
+.kebab-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.more-icon {
+    color: #000;
+    cursor: pointer;
+}
+
+.menu-options {
+    position: absolute;
+    top: 25px;
+    right: -10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    display: none;
+}
+
+.menu-options ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-options ul li {
+    margin-bottom: 5px;
+}
+
+.menu-options ul li a {
+    color: #000;
+    text-decoration: none;
+}
+
+.menu-options ul li a:hover {
+    text-decoration: underline;
+}

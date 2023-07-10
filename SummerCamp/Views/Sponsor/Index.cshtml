@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SponsorViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<head>
+    <style>
+        .button-1 {
+            background-color: #92AD40;
+            border-radius: 8px;
+            border-style: none;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            height: 40px;
+            padding: 10px 16px;
+            text-align: center;
+            text-decoration: none;
+            transition: color 100ms;
+            touch-action: manipulation;
+            margin-left: 780px;
+            margin-top: 20px;
+        }
+
+        .button-1:hover,
+        .button-1:focus {
+            background-color: #879f3e;
+        }
+    </style>
+</head>
+ <button class="button-1" onclick="location.href='@Url.Action("Create", "Sponsor")'">Creaza sponsor</button>
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

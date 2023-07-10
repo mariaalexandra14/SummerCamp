@@ -17,7 +17,6 @@ namespace SummerCamp.DataAccessLayer.Implementations
         public T Add(T entity)
         {
             _context.Set<T>().Add(entity);
-            Save().GetAwaiter().GetResult();
 
             return entity;
         }
@@ -25,7 +24,6 @@ namespace SummerCamp.DataAccessLayer.Implementations
         public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
-            Save().GetAwaiter().GetResult();
         }
 
         public IList<T> Get(Expression<Func<T, bool>> expression)
@@ -43,15 +41,14 @@ namespace SummerCamp.DataAccessLayer.Implementations
             return _context.Set<T>().Find(id);
         }
 
-        public async Task Save()
+        public void Save()
         {
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public T Update(T entity)
         {
             _context.Update(entity);
-            Save().GetAwaiter().GetResult();
 
             return entity;
         }

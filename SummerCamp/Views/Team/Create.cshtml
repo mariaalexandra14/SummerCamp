@@ -7,7 +7,6 @@
 
 <head>
     <link rel="stylesheet" href="~/css/create_coach.css" asp-append-version="true" />
-
 </head>
 
 
@@ -26,6 +25,17 @@
                 <input asp-for="NickName" class="form-control" />
                 <span asp-validation-for="NickName" class="text-danger"></span>
             </div>
+            @*<div class="dropdown-container">
+                <div class="dropdown-button noselect">
+                    <div class="dropdown-label">States</div>
+                    <div class="dropdown-quantity">(<span class="quantity">Any</span>)</div>
+                    <i class="fa fa-filter"></i>
+                </div>
+                <div class="dropdown-list" style="display: none;">
+                    <input type="search" placeholder="Search player" class="dropdown-search" />
+                    <ul></ul>
+                </div>
+            </div>*@
             
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
