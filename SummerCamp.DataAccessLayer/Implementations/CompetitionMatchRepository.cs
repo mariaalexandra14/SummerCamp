@@ -14,7 +14,9 @@ namespace SummerCamp.DataAccessLayer.Implementations
         {
             return context.Set<CompetitionMatch>()
                 .Include(x => x.HomeTeam)
-                .Include(x => x.AwayTeam).ToList();
+                .Include(x => x.AwayTeam)
+                .Where(x => x.CompetitionId == competitonId)
+                .ToList();
 
         }
     }

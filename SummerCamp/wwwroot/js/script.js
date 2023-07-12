@@ -1,38 +1,22 @@
-﻿//const selectBtn = document.querySelector(".select-btn");
-//const items = document.querySelectorAll(".item");
-//const selectedTeamsInput = document.getElementById("selected-teams-input");
+﻿function openMenu(id) {
+    var menuOptions = document.getElementById("menu-options-" + id);
 
-//selectBtn.addEventListener("click", () => {
-//    selectBtn.classList.toggle("open");
-//});
+    menuOptions.style.display = (menuOptions.style.display === 'block') ? 'none' : 'block';
+}
 
-//items.forEach((item) => {
-//    item.addEventListener("click", () => {
-//        let numberofteams = parseInt($("#NumberOfTeams").prop("value")); // Modificare aici
+document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('click', function (event) {
+        var menuOptionsList = document.querySelectorAll('.menu-options');
 
-//        if (item.classList.contains("checked")) {
-//            // Verifică numărul maxim de opțiuni selectate
-//            let checkedItems = document.querySelectorAll(".checked");
-//            console.log($("#NumberOfTeams"))
-//            console.log(numberofteams);
+        menuOptionsList.forEach(menuOptions => {
+            var id = menuOptions.id.replace('menu-options-', '');
 
-//            if (checkedItems.length > numberofteams) {
-//                item.classList.remove("checked"); // Deselectează elementul dacă numărul maxim a fost atins
-//                return;
-//            }
-//        } else {
-//            // Verifică numărul maxim de opțiuni selectate
-//            let checkedItems = document.querySelectorAll(".checked");
-//            if (checkedItems.length >= numberofteams) {
-//                return; // Nu permite selectarea altor opțiuni dacă numărul maxim a fost atins
-//            }
-//        }
+            var moreIcon = document.getElementById("more-icon-" + id);
 
-//        item.classList.toggle("checked");
-//        let checkedItems = document.querySelectorAll(".checked");
-//        let selectedTeamIds = Array.from(checkedItems).map(
-//            (item) => item.querySelector(".check-icon").id
-//        );
-//        selectedTeamsInput.value = JSON.stringify(selectedTeamIds);
-//    });
-//});
+
+            if (!moreIcon.contains(event.target) && !menuOptions.contains(event.target)) {
+                menuOptions.style.display = 'none';
+            }
+        });
+    });
+});
