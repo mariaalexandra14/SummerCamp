@@ -12,7 +12,7 @@ namespace SummerCamp.DataAccessLayer.Implementations
 
         public IList<Player> GetAllWithTeamAndCountry()
         {
-            return _context.Set<Player>()
+            return context.Set<Player>()
                 .Include(p => p.Team)
                 .Include(p => p.Country)
                 .ToList();

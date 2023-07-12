@@ -1,0 +1,31 @@
+﻿@model IEnumerable<CompetitionMatchViewModel>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<head>
+	<link rel="stylesheet" href="~/css/competition_style.css" asp-append-version="true" />
+</head>
+
+
+<div class="sign-up-htm">
+	<div class="match-container">
+		@foreach(var item in Model)
+		{
+			<div class="row">
+				<div class="column big">
+					<h5>@item.HomeTeamGoals</h5>
+					<h6>@item.HomeTeam.Name</h6>
+				</div>
+				<div class="column small">
+					<h3>-</h3>
+				</div>
+				<div class="column big">
+					<h5>@item.AwayTeamGoals</h5>
+					<h6>@item.AwayTeam.Name</h6>
+				 </div>
+			</div>
+		}
+	</div>
+</div>

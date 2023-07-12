@@ -17,5 +17,13 @@
         public int? SponsorId { get; set; }
 
         public SponsorViewModel? Sponsor { get; set; }
+
+        public IEnumerable<TeamViewModel> AvailableTeams { get; set; }
+        public List<int> SelectedTeamsIds { get; set; }
+        public IEnumerable<TeamViewModel> Teams { get; set; }
+
+        public List<CompetitionTeamViewModel> CompetitionTeams { get; set; } = new List<CompetitionTeamViewModel>();
+        public IEnumerable<CompetitionMatchViewModel> CompetitionMatches { get; set; }
+
     }
 }

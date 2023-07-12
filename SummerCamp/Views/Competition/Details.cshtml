@@ -1,0 +1,28 @@
+﻿@model CompetitionViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/competition_style.css" asp-append-version="true"/>
+</head>
+
+<div class="competition-details">
+    <div class="login-html">
+        <div class="competition-name">
+            <h1>@Model.Name</h1>
+        </div>
+
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Overview</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Matches</label>
+        <div class="login-form">
+            <div class="sign-in-htm">
+                @Html.Partial("Overview", ViewData["CompetitionTeams"])
+            </div>
+            <div class="sign-up-htm">
+                @Html.Partial("Matches", ViewData["CompetitionMatches"])
+            </div>
+        </div>
+    </div>
+</div>

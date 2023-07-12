@@ -20,6 +20,9 @@ builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 builder.Services.AddScoped<ISponsorRepository, SponsorRepository>();
 builder.Services.AddScoped<ICompetitionRepository, CompetitionRepository>();
+builder.Services.AddScoped<ICompetitionTeamRepository, CompetitionTeamRepository>();
+builder.Services.AddScoped<ICompetitionMatchRepository, CompetitionMatchRepository>();
+
 
 var mapperConfig = new MapperConfiguration(mc =>
 {

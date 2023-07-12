@@ -7,11 +7,11 @@ namespace SummerCamp.Controllers
     [Route("[controller]/{action}")]
     public class CountryController : Controller
     {
-        private readonly ICountryRepository countryRepository;
+        private readonly ICountryRepository _countryRepository;
 
         public CountryController(ICountryRepository countryRepository)
         {
-            this.countryRepository = countryRepository;
+            this._countryRepository = countryRepository;
         }
 
         public IActionResult Index()
@@ -28,9 +28,9 @@ namespace SummerCamp.Controllers
         // POST: Countries/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Id")] Country country, [FromForm] IFormFile photo)
+        public async Task<IActionResult> Create(Country country, [FromForm] IFormFile photo)
         {
-            if (ModelState.IsValid && photo != null && photo.Length > 0)
+            if (photo != null && photo.Length > 0)
             {
                 var fileName = Path.GetFileName(photo.FileName);
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\assets\uploads", fileName);
@@ -41,7 +41,8 @@ namespace SummerCamp.Controllers
 
                 country.Flag = fileName;
 
-                countryRepository.Add(country);
+                _countryRepository.Add(country);
+                _countryRepository.Save();
             }
 
             return RedirectToAction(nameof(Create));

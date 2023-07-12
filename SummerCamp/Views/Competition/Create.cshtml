@@ -6,7 +6,116 @@
 }
 
 <head>
-    <link rel="stylesheet" href="~/css/create_player.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/create_competition.css" asp-append-version="true" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+
+
+    <script>
+        $(document).ready(function () {
+            const selectBtn = document.querySelector(".select-btn");
+            const items = document.querySelectorAll(".item");
+            const selectedTeamsInput = document.getElementById("selected-teams-input");
+
+            selectBtn.addEventListener("click", () => {
+                selectBtn.classList.toggle("open");
+            });
+
+            items.forEach((item) => {
+                item.addEventListener("click", () => {
+                    let numberofteams = parseInt($("#NumberOfTeams").val());
+
+                    if (item.classList.contains("checked")) {
+                        let checkedItems = document.querySelectorAll(".checked");
+                        console.log(numberofteams);
+
+                        if (checkedItems.length > numberofteams) {
+                            item.classList.remove("checked"); 
+                            return;
+                        }
+                    } else {
+                        let checkedItems = document.querySelectorAll(".checked");
+                        if (checkedItems.length >= numberofteams) {
+                            return;
+                        }
+                    }
+
+                    item.classList.toggle("checked");
+                    let checkedItems = document.querySelectorAll(".checked");
+                    let selectedTeamIds = Array.from(checkedItems).map(
+                        (item) => item.querySelector(".check-icon").id
+                    );
+                    selectedTeamsInput.value = JSON.stringify(selectedTeamIds);
+                });
+            });
+        });
+
+        function createCompetition() {
+            var selectedTeams = [];
+            $(".item.checked").each(function () {
+                var teamId = $(this).attr("id");
+                selectedTeams.push(teamId);
+            });
+
+            let model = {
+                Name: $("#Name").val(),
+                NumberOfTeams: $("#NumberOfTeams").val(),
+                Address: $("#Address").val(),
+                StartDate: $("#StartDate").val(),
+                EndDate: $("#EndDate").val(),
+                SelectedTeamsIds: selectedTeams,
+            }
+
+            //$.ajax({
+            //    type: "POST",
+            //    timeout: 500,  
+            //    contentType: "application/json; charset=utf-8",
+            //    url: "/Competition/Create",
+            //    data: JSON.stringify(model),
+            //    dataType: "json",
+            //    success: function (response) {
+            //        alert("Competitia a fost creata cu succes");
+            //        window.location.href = "/Competition/Index";
+            //    },
+            //    error: function (error) {
+            //        alert("A aparut o eroare");
+            //        console.log(error);
+            //        window.location.href = "/Competition/Index";
+            //    }
+            //});
+             $.ajax({
+                    type: 'POST',
+                    timeout: 10000,  
+                    url: '@Url.Action("Create", "Competition")',
+                    contentType: "application/json; charset=utf-8",
+                    processData: false,
+                    cache: false,
+                    data: JSON.stringify(model),
+                    success: function (response) {
+                        alert("Competitia a fost creata cu succes");
+                        //window.location.href = "/Competition/Index";
+                },
+                    error: function (error) {
+                            alert("A aparut o eroare");
+                            console.log(error);
+                            //window.location.href = "/Competition/Index";
+                }
+                });
+        }
+    </script>
+
+
 </head>
 
 
@@ -14,7 +123,7 @@
     <div class="country-form">
         <h1 class="text">Create competition</h1>
         <hr />
-        <form asp-action="Create" asp-controller="Competition" method="post" enctype="multipart/form-data">
+        <form asp-action="Create" asp-controller="Competition" method="post">
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -40,11 +149,30 @@
                 <input asp-for="EndDate" type="date" class="form-control" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="dropdown-container">
+                <div class="select-btn">
+                    <span class="btn-text">Select Teams</span>
+                    <span class="arrow-dwn">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </div>
+                <ul class="list-items">
+                    @foreach (var team in Model.AvailableTeams)
+                    {
+                        <li class="item" id="@team.Id">
+                            <span class="checkbox">
+                                <i class="fa-solid fa-check check-icon" id="@team.Id"></i>
+                            </span>
+                            <span class="item-text">@team.Name</span>
+                        </li>
+                    }
+                </ul>
             </div>
+            <button type="button" onclick="createCompetition()">Create</button>
+
         </form>
+
+
     </div>
 </div>
 
@@ -56,4 +184,6 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+
 }

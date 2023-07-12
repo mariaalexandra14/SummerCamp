@@ -14,6 +14,8 @@ namespace SummerCamp.Infrastructure
             CreateMap<Player, PlayerViewModel>().ReverseMap();
             CreateMap<Sponsor, SponsorViewModel>().ReverseMap();
             CreateMap<Competition, CompetitionViewModel>().ReverseMap();
+            CreateMap<CompetitionTeam, CompetitionTeamViewModel>().ReverseMap();
+            CreateMap<CompetitionMatch, CompetitionMatchViewModel>().ReverseMap();
         }
     }
 }

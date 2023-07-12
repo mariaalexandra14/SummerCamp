@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SummerCamp.DataModels.Models;
+﻿namespace SummerCamp.DataModels.Models;
 
 public partial class CompetitionTeam
 {

@@ -1,0 +1,129 @@
+﻿* {
+    user-select: none;
+}
+
+.menu-btn {
+    border-radius: 48px;
+    border: 0.5px solid lightgrey;
+    font-size: 0.9em;
+    padding: 2px 10px;
+    background-color: white;
+}
+
+.menu {
+    padding-top: 10px;
+    z-index: 200;
+    margin-top: 4px;
+    background-color: white;
+    position: absolute;
+}
+
+.menu-option {
+    padding: 6px 20px 6px;
+}
+
+.dropdown-container {
+    position: relative;
+    /* max-width: 320px;*/
+    width: 100%;
+    border-radius: 8px;
+    margin: 10px 0px 10px;
+    background-color: white;
+}
+
+.select-btn {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    padding: 0 16px;
+    justify-content: space-between;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.select-btn .btn-text {
+    font-size: 17px;
+    font-weight: 400;
+    color: #333;
+}
+
+.select-btn .arrow-dwn {
+    display: flex;
+    height: 21px;
+    width: 21px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 14px;
+    background: #6e93f7;
+    transition: 0.3s;
+}
+
+.select-btn.open .arrow-dwn {
+    transform: rotate(-180deg);
+}
+
+.list-items {
+    position: relative;
+    background-color: #fff;
+    margin-top: 15px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    display: none;
+}
+
+.select-btn.open ~ .list-items {
+    display: block;
+}
+
+.list-items .item {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    height: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 0 15px;
+    border-radius: 8px;
+}
+
+.list-items .item:hover {
+    background-color: #e7edfe;
+}
+
+.item .item-text{
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}
+
+.item .checkbox {
+    height: 16px;
+    width: 16px;
+    border: 1.5px solid #c0c0c0;
+    border-radius: 4px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.item.checked .checkbox {
+    background-color: #4070f4;
+    border-color: #4070f4;
+}
+
+.checkbox .check-icon {
+    color: #fff;
+    font-size: 11px;
+    transform: scale(0);
+    transition: all 0.3s ease-in-out;
+}
+
+.item.checked .check-icon {
+    transform: scale(1);
+}

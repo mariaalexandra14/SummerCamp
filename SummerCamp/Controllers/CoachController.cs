@@ -76,6 +76,16 @@ namespace SummerCamp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public ActionResult Add(string[] selectedTeams)
+        {
+            foreach (var teamId in selectedTeams)
+            {
+
+            }
+
+            return RedirectToAction("Index");
+        }
 
         // GET: Coaches/Edit/{id}
         public IActionResult Edit(int Id)

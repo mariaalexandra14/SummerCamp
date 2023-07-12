@@ -1,0 +1,39 @@
+﻿@model CompetitionOverviewModel
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<head>
+	<link rel="stylesheet" href="~/css/competition_style.css" asp-append-version="true" />
+</head>
+
+<div class="sign-in-htm">
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Number of teams</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Competition.StartDate!.Value.ToString("dd.MM.yyyy") - @Model.Competition.EndDate!.Value.ToString("dd.MM.yyyy")</td>
+                <td>@Model.Competition.NumberOfTeams</td>
+                <td>@Model.Competition.Address</td>
+            </tr>
+        </tbody>
+    </table>
+    <h1>Teams</h1>
+    <hr />
+    @{int i = 1;}
+    @foreach(var item in Model.CompetitionTeams)
+    {
+        if(item.Team != null)
+        {
+            <h5>@i. @item.Team.Name (@item.Team.NickName)</h5>
+            i++;
+        }
+    }
+</div>
