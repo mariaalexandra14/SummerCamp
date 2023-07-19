@@ -4,6 +4,6 @@
     [Name]     VARCHAR (255) NULL,
     [CoachId]  INT           NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
-    FOREIGN KEY ([CoachId]) REFERENCES [dbo].[Coach] ([Id])
+    FOREIGN KEY ([CoachId]) REFERENCES [dbo].[Coach] ([Id]) ON DELETE SET NULL
 );
 

@@ -25,15 +25,18 @@
             </tr>
         </tbody>
     </table>
+    <br />
     <h1>Teams</h1>
     <hr />
     @{int i = 1;}
-    @foreach(var item in Model.CompetitionTeams)
-    {
-        if(item.Team != null)
+    <div class="teams-list">
+        @foreach(var item in Model.CompetitionTeams)
         {
-            <h5>@i. @item.Team.Name (@item.Team.NickName)</h5>
-            i++;
+            if(item.Team != null)
+            {
+                <h5>@i. @item.Team.Name (@item.Team.NickName) [Points: @item.TotalPoints]</h5>
+                i++;
+            }
         }
-    }
+    </div>
 </div>

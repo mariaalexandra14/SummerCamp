@@ -5,15 +5,14 @@
 }
 
 <head>
+    <link rel="stylesheet" href="~/css/create_player.css" asp-append-version="true" />
 </head>
 
-<h1>Edit</h1>
-
-<h4>Player</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method="post">
+<div class="base-container">
+    <div class="wrapper">
+        <h1 class="text">Edit player</h1>
+        <hr />
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -31,8 +30,8 @@
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Position" class="control-label"></label>
-                <input asp-for="Position" class="form-control" />
+                <label asp-for="Position" class="control-label">Position</label>
+                @Html.DropDownList("Position", (IEnumerable<SelectListItem>) ViewData["Positions"], "Select a position", new { @class = "form-control" })
                 <span asp-validation-for="Position" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -51,19 +50,19 @@
                 @Html.DropDownList("CountryId", (IEnumerable<SelectListItem>) ViewData["Countries"], "Select a country", new { @class = "form-control" })
                 <span asp-validation-for="CountryId" class="text-danger"></span>
             </div>
-           @* <div class="form-group">
+            <div class="form-group">
                 <label asp-for="Picture" class="text">Profile picture</label>
-                <input type="file" class="form-control-file" name="photo">
-            </div>*@
+                <input type="file" class="form-control-file" name="photo" accept=".jpg,.jpeg,.png">
+            </div>
+            <input type="hidden" asp-for="Picture" />
 
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="button-1" />
             </div>
         </form>
     </div>
 </div>
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

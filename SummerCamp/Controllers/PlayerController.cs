@@ -33,6 +33,8 @@ namespace SummerCamp.Controllers
         // GET: Coaches/Create
         public IActionResult Create()
         {
+            ViewData["Positions"] = GetPositions();
+
             List<SelectListItem> teams = new SelectList(_teamRepository.GetAll(), "Id", "Name").ToList();
             teams.Insert(0, (new SelectListItem { Text = "Without team", Value = "0" }));
             ViewData["Teams"] = teams;
@@ -49,7 +51,16 @@ namespace SummerCamp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PlayerViewModel playerViewModel, [FromForm] IFormFile photo)
         {
-            //if ModelState.IsValid
+            ViewData["Positions"] = GetPositions();
+
+            List<SelectListItem> teams = new SelectList(_teamRepository.GetAll(), "Id", "Name").ToList();
+            teams.Insert(0, (new SelectListItem { Text = "Without team", Value = "0" }));
+            ViewData["Teams"] = teams;
+
+            List<SelectListItem> countries = new SelectList(_countryRepository.GetAll(), "Id", "Name").ToList();
+            countries.Insert(0, (new SelectListItem { Text = "Unknown", Value = "0" }));
+            ViewData["Countries"] = countries;
+
             if (photo != null && photo.Length > 0)
             {
                 var fileName = Path.GetFileName(photo.FileName);
@@ -61,6 +72,10 @@ namespace SummerCamp.Controllers
 
                 playerViewModel.Picture = fileName;
             }
+            else
+            {
+                playerViewModel.Picture = "default.jpg";
+            }
             if (playerViewModel.CountryId == 0)
             {
                 playerViewModel.CountryId = null;
@@ -68,6 +83,13 @@ namespace SummerCamp.Controllers
             if (playerViewModel.TeamId == 0)
             {
                 playerViewModel.TeamId = null;
+            }
+
+            if (!_playerRepository.IsShirtNumberUnique(playerViewModel.TeamId, playerViewModel.ShirtNumber))
+            {
+                ModelState.AddModelError("Error", "Shirt number already exist in this team.");
+
+                return View(playerViewModel);
             }
 
             _playerRepository.Add(_mapper.Map<Player>(playerViewModel));
@@ -80,6 +102,8 @@ namespace SummerCamp.Controllers
         // GET: Coaches/Edit/{id}
         public IActionResult Edit(int Id)
         {
+            ViewData["Positions"] = GetPositions();
+
             List<SelectListItem> teams = new SelectList(_teamRepository.GetAll(), "Id", "Name").ToList();
             teams.Insert(0, (new SelectListItem { Text = "Without team", Value = "0" }));
             ViewData["Teams"] = teams;
@@ -89,15 +113,28 @@ namespace SummerCamp.Controllers
             ViewData["Countries"] = countries;
 
             var player = _playerRepository.GetById(Id);
+            var playerViewModel = _mapper.Map<PlayerViewModel>(player);
 
-            return View(_mapper.Map<PlayerViewModel>(player));
+            return View(playerViewModel);
         }
 
         // POST: Coaches/Edit/{id}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(PlayerViewModel playerViewModel)
+        public async Task<IActionResult> Edit(PlayerViewModel playerViewModel, [FromForm] IFormFile photo)
         {
+            if (photo != null && photo.Length > 0)
+            {
+                var fileName = Path.GetFileName(photo.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\assets\uploads", fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await photo.CopyToAsync(fileStream);
+                }
+
+                playerViewModel.Picture = fileName;
+            }
+
             _playerRepository.Update(_mapper.Map<Player>(playerViewModel));
 
             _playerRepository.Save();
@@ -131,6 +168,17 @@ namespace SummerCamp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View();
+        }
+
+        private SelectList GetPositions()
+        {
+            var positions = from Position position in Enum.GetValues(typeof(Position))
+                            select new
+                            {
+                                Id = (int)position,
+                                Name = position.ToString()
+                            };
+            return new SelectList(positions, "Id", "Name");
         }
     }
 }

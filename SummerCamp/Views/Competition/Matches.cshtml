@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CompetitionMatchViewModel>
+﻿@model CompetitionMatchesModel
 
 @{
 	ViewData["Title"] = "Index";
@@ -6,25 +6,85 @@
 
 <head>
 	<link rel="stylesheet" href="~/css/competition_style.css" asp-append-version="true" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script>
+        function createCompetitionMatch(competitionId) {
+			$.ajax({
+				timeout: 10000,
+				url: '@Url.Action("Create", "CompetitionMatch")',
+				dataType: 'JSON',
+				data: { competitionId: competitionId },
+				success: function (response) {
+					window.location.href = "/CompetitionMatch/Create";
+				},
+				error: function (error) {
+					console.log(error);
+					window.location.href = "/CompetitionMatch/Create";
+				}
+			});
+        }
+
+		function openMenu(id) {
+			var menuOptions = document.getElementById("menu-options-" + id);
+
+			menuOptions.style.display = (menuOptions.style.display === 'block') ? 'none' : 'block';
+		}
+
+		document.addEventListener('DOMContentLoaded', function () {
+			document.addEventListener('click', function (event) {
+				var menuOptionsList = document.querySelectorAll('.menu-options');
+
+				menuOptionsList.forEach(menuOptions => {
+					var id = menuOptions.id.replace('menu-options-', '');
+
+					var moreIcon = document.getElementById("more-icon-" + id);
+
+
+					if (!moreIcon.contains(event.target) && !menuOptions.contains(event.target)) {
+						menuOptions.style.display = 'none';
+					}
+				});
+			});
+		});
+	</script>
 </head>
 
-
 <div class="sign-up-htm">
-	<div class="match-container">
-		@foreach(var item in Model)
+	<div class="matches-container">
+
+		<a class="button-1" role="button" asp-action="Create" asp-controller="CompetitionMatch" asp-route-competitionId="@Model.CompetitionId">Create match</a>
+
+		@foreach(var item in Model.CompetitionMatches)
 		{
-			<div class="row">
-				<div class="column big">
-					<h5>@item.HomeTeamGoals</h5>
-					<h6>@item.HomeTeam.Name</h6>
+			<div class="row match-container">
+				<div class = "column left">
+					<div class="column big">
+						<h5>@item.HomeTeamGoals</h5>
+						<h6>@item.HomeTeam.Name</h6>
+					</div>
+					<div class="column small">
+						<h3>-</h3>
+					</div>
+					<div class="column big">
+						<h5>@item.AwayTeamGoals</h5>
+						<h6>@item.AwayTeam.Name</h6>
+					</div>
 				</div>
-				<div class="column small">
-					<h3>-</h3>
+				<div class="column right">
+					<div class="kebab-menu">
+						<i class="more-icon glyphicon glyphicon-option-vertical" style="font-size: 16pt; padding-top: 10px" id="more-icon-@item.Id" onclick="openMenu(@item.Id)"></i>
+						<div class="menu-options" id="menu-options-@item.Id">
+							<ul>
+								<li class="nav-item">
+									<a asp-action="Edit" asp-controller="CompetitionMatch" asp-route-id="@item.Id">Editeaza</a>
+								</li>
+								<li class="nav-item">
+									<a asp-action="Delete" asp-controller="CompetitionMatch" asp-route-id="@item.Id">Sterge</a>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</div>
-				<div class="column big">
-					<h5>@item.AwayTeamGoals</h5>
-					<h6>@item.AwayTeam.Name</h6>
-				 </div>
 			</div>
 		}
 	</div>

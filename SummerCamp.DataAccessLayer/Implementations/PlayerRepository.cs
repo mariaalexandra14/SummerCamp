@@ -18,5 +18,10 @@ namespace SummerCamp.DataAccessLayer.Implementations
                 .ToList();
         }
 
+        public bool IsShirtNumberUnique(int? teamId, int? shirtNumber)
+        {
+            return context.Players.Where(x => x.TeamId == teamId && x.ShirtNumber == shirtNumber).Count() == 0;
+        }
+
     }
 }

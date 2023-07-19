@@ -10,7 +10,7 @@
     [Picture] VARCHAR(255) NULL, 
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([CountryId]) REFERENCES [dbo].[Country] ([Id]),
-    FOREIGN KEY ([TeamId]) REFERENCES [dbo].[Team] ([Id]),
+    FOREIGN KEY ([TeamId]) REFERENCES [dbo].[Team] ([Id]) ON DELETE SET NULL,
     CONSTRAINT [UQ_Team_Name] UNIQUE NONCLUSTERED ([TeamId] ASC, [ShirtNumber] ASC)
 );
 

@@ -15,6 +15,7 @@
         public DateTime? EndDate { get; set; }
 
         public int? SponsorId { get; set; }
+        public bool Success { get; set; }
 
         public SponsorViewModel? Sponsor { get; set; }
 

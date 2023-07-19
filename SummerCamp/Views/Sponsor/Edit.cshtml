@@ -6,14 +6,15 @@
 
 <head>
 </head>
+<head>
+    <link rel="stylesheet" href="~/css/create_sponsor.css" asp-append-version="true" />
+</head>
 
-<h1>Edit</h1>
-
-<h4>Player</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method="post">
+<div class="base-container">
+    <div class="wrapper">
+        <h1 class="text">Edit sponsor</h1>
+        <hr />
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -23,7 +24,7 @@
 
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="button-1" />
             </div>
         </form>
     </div>

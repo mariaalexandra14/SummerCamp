@@ -26,17 +26,14 @@ namespace SummerCamp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var coaches = _coachRepository.GetAllWithCountriesAndTeam();
+            var coaches = _coachRepository.GetAllWithCountries();
+
             return View(_mapper.Map<IList<CoachViewModel>>(coaches));
         }
 
         // GET: Coaches/Create
         public IActionResult Create()
         {
-            List<SelectListItem> teams = new SelectList(_teamRepository.GetAll(), "Id", "Name").ToList();
-            teams.Insert(0, (new SelectListItem { Text = "Without team", Value = "0" }));
-            ViewData["Teams"] = teams;
-
             List<SelectListItem> countries = new SelectList(_countryRepository.GetAll(), "Id", "Name").ToList();
             countries.Insert(0, (new SelectListItem { Text = "Unknown", Value = "0" }));
             ViewData["Countries"] = countries;
@@ -49,7 +46,6 @@ namespace SummerCamp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CoachViewModel coachViewModel, [FromForm] IFormFile photo)
         {
-            //if ModelState.IsValid
             if (photo != null && photo.Length > 0)
             {
                 var fileName = Path.GetFileName(photo.FileName);
@@ -61,13 +57,9 @@ namespace SummerCamp.Controllers
 
                 coachViewModel.Picture = fileName;
             }
-            if (coachViewModel.CountryId == 0)
+            else
             {
-                coachViewModel.CountryId = null;
-            }
-            if (coachViewModel.TeamId == 0)
-            {
-                coachViewModel.TeamId = null;
+                coachViewModel.Picture = "default.jpg";
             }
 
             _coachRepository.Add(_mapper.Map<Coach>(coachViewModel));
@@ -76,24 +68,9 @@ namespace SummerCamp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        public ActionResult Add(string[] selectedTeams)
-        {
-            foreach (var teamId in selectedTeams)
-            {
-
-            }
-
-            return RedirectToAction("Index");
-        }
-
         // GET: Coaches/Edit/{id}
         public IActionResult Edit(int Id)
         {
-            List<SelectListItem> teams = new SelectList(_teamRepository.GetAll(), "Id", "Name").ToList();
-            teams.Insert(0, (new SelectListItem { Text = "Without team", Value = "0" }));
-            ViewData["Teams"] = teams;
-
             List<SelectListItem> countries = new SelectList(_countryRepository.GetAll(), "Id", "Name").ToList();
             countries.Insert(0, (new SelectListItem { Text = "Unknown", Value = "0" }));
             ViewData["Countries"] = countries;

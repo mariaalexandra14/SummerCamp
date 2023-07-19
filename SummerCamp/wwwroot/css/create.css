@@ -1,0 +1,177 @@
+﻿* {
+    user-select: none;
+}
+
+.overview h4 {
+    text-align: left;
+    margin-left: 10px;
+}
+
+.team-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.player-item {
+    height: 200px;
+}
+
+.player-image {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    object-fit: cover;
+}
+
+.competition-view {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    margin-bottom: 20px;
+}
+
+    .competition-view:hover {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
+
+.list {
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: nowrap;
+    align-self: center;
+    text-align: center;
+    max-width: 700px;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.left {
+    width: 90%;
+}
+
+.right {
+    width: 10%;
+}
+
+.more-icon {
+    position: absolute;
+    margin-top: 10px;
+    margin-right: 5px;
+    float: right;
+}
+
+.kebab-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.more-icon {
+    color: #000;
+    cursor: pointer;
+}
+
+.menu-options {
+    position: absolute;
+    top: 25px;
+    right: -10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    display: none;
+}
+
+.menu-options ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-options ul li {
+    margin-bottom: 5px;
+}
+
+.menu-options ul li a {
+    color: #000;
+    text-decoration: none;
+}
+
+.menu-options ul li a:hover {
+    text-decoration: underline;
+}
+
+.button-1 {
+    background-color: rgba(141, 148, 186);
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    padding: 10px 16px;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    touch-action: manipulation;
+    margin-top: 100px;
+}
+
+.button-1:hover,
+.button-1:focus {
+    background-color: rgba(141, 148, 186);
+}
+
+.button-2 {
+    background-color: rgba(141, 148, 186);
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    padding: 10px 16px;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    touch-action: manipulation;
+}
+
+.button-2:hover,
+.button-2:focus {
+    background-color: rgba(141, 148, 186);
+}
+
+
+/* Overview table */
+
+.styled-table {
+    font-size: 0.9em;
+    font-family: sans-serif;
+    margin: 0;
+    width: 100%;
+}
+
+.styled-table thead tr {
+    background-color: rgba(141, 148, 186);
+    color: black;
+    text-align: center;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid rgba(141, 148, 186);
+}

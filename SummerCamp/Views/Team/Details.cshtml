@@ -1,0 +1,71 @@
+﻿@model TeamViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/team_style.css" asp-append-version="true" />
+</head>
+
+<div class="list-wrapper">
+    <div class="list">
+    <h1 class="text">@Model.Name</h1>
+    <hr />
+    <div class="overview">
+        @if(Model.Coach != null)
+        {
+            <h4>Coach: @Model.Coach.FullName</h4>
+        }
+        else
+        {
+            <h4>Coach: Without coach</h4>
+        }
+        @if(Model.Players.Count == 0 || Model.Players == null)
+        {
+            <h4>Players: This team doesn't have players </h4>
+        }
+        else
+        {
+            <h4>Players:</h4>
+            <div class="players-container">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Player</th>
+                            <th>Position</th>
+                            <th>Nationality</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    @foreach (var player in Model.Players)
+                    {
+                        <tbody>
+                            <tr>
+                                <td><img src="~/assets//uploads/@player.Picture" class="player-image"></td>
+                                <td>@player.Name</td>
+                                <td>@player.Position</td>
+                                <td>@player.Country.Name</td>
+                                <td>
+                                    <a class="button-2" role="button" asp-action="DeletePlayerFromTeam" asp-controller="Team" asp-route-playerId="@player.Id">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        }
+    </div>
+</div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

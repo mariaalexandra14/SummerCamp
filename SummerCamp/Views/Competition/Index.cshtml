@@ -7,36 +7,10 @@
 <head>
 	<link rel="stylesheet" href="~/css/competition_list.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <style>
-        .button-1 {
-            background-color: rgba(141, 148, 186);
-            border-radius: 8px;
-            border-style: none;
-            box-sizing: border-box;
-            color: #FFFFFF;
-            cursor: pointer;
-            display: inline-block;
-            font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            height: 40px;
-            padding: 10px 16px;
-            text-align: center;
-            text-decoration: none;
-            transition: color 100ms;
-            touch-action: manipulation;
-            margin-left: 780px;
-            margin-top: 20px;
-        }
-
-        .button-1:hover,
-        .button-1:focus {
-            background-color: rgba(141, 148, 186);
-        }
-    </style>
 </head>
  <button class="button-1" onclick="location.href='@Url.Action("Create", "Competition")'">Creaza competitie</button>
- 
+ <h1 style="text-align: center">Competitions</h1>
+ <hr />
  <div class="list">
     @foreach (var competition in Model)
     {
@@ -82,12 +56,6 @@
  </div>
 @section scripts {
     <script src="~/js/script.js"></script>
-   @* <script>
-        function redirectToCompetitionDetails(competitionId) {
-            var url = 'https://localhost:7148/Competition/Details?id=' + competitionId;
-            window.location.href = url;
-        }
-    </script>*@
     <script>
         function redirectToCompetitionDetails(url) {
             window.location.href = url;

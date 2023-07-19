@@ -44,10 +44,6 @@ public partial class SummerCampDbContext : DbContext
 
             entity.ToTable("Coach");
 
-            entity.HasIndex(e => e.TeamId, "IX_Coach_TeamId")
-                .IsUnique()
-                .HasFilter("([TeamId] IS NOT NULL)");
-
             entity.Property(e => e.FullName)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -58,10 +54,6 @@ public partial class SummerCampDbContext : DbContext
             entity.HasOne(d => d.Country).WithMany(p => p.Coaches)
                 .HasForeignKey(d => d.CountryId)
                 .HasConstraintName("FK__Coach__CountryId__571DF1D5");
-
-            entity.HasOne(d => d.Team).WithOne(p => p.Coach)
-                .HasForeignKey<Coach>(d => d.TeamId)
-                .HasConstraintName("FK__Coach__TeamId__59063A47");
         });
 
         modelBuilder.Entity<Competition>(entity =>
@@ -86,26 +78,24 @@ public partial class SummerCampDbContext : DbContext
 
         modelBuilder.Entity<CompetitionMatch>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Competit__3214EC077DB27188");
+            entity.HasKey(e => e.Id).HasName("PK__Competit__3214EC074E7C8AF9");
 
             entity.ToTable("CompetitionMatch");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.AwayTeam).WithMany(p => p.CompetitionMatchAwayTeams)
                 .HasForeignKey(d => d.AwayTeamId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Competiti__AwayT__4CA06362");
+                .HasConstraintName("FK__Competiti__AwayT__17F790F9");
 
             entity.HasOne(d => d.Competition).WithMany(p => p.CompetitionMatches)
                 .HasForeignKey(d => d.CompetitionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Competiti__Compe__4AB81AF0");
+                .HasConstraintName("FK__Competiti__Compe__18EBB532");
 
             entity.HasOne(d => d.HomeTeam).WithMany(p => p.CompetitionMatchHomeTeams)
                 .HasForeignKey(d => d.HomeTeamId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Competiti__HomeT__4BAC3F29");
+                .HasConstraintName("FK__Competiti__HomeT__19DFD96B");
         });
 
         modelBuilder.Entity<CompetitionTeam>(entity =>
@@ -120,7 +110,8 @@ public partial class SummerCampDbContext : DbContext
 
             entity.HasOne(d => d.Team).WithMany(p => p.CompetitionTeams)
                 .HasForeignKey(d => d.TeamId)
-                .HasConstraintName("FK__Competiti__TeamI__35BCFE0A");
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK__Competiti__TeamI__02084FDA");
         });
 
         modelBuilder.Entity<Country>(entity =>
@@ -190,6 +181,11 @@ public partial class SummerCampDbContext : DbContext
             entity.Property(e => e.NickName)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+
+            entity.HasOne(d => d.Coach).WithMany(p => p.Teams)
+                .HasForeignKey(d => d.CoachId)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK__Team__CoachId__01142BA1");
         });
 
         modelBuilder.Entity<TeamSponsor>(entity =>

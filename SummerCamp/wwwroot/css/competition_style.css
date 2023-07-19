@@ -9,6 +9,7 @@
     max-width: 700px;
     min-height: 670px;
     position: relative;
+    margin-top: 120px;
 }
 
 .competition-name {
@@ -21,7 +22,7 @@
     height: 100%;
     position: absolute;
     padding: 60px 70px 50px 70px;
-    background: rgba(141, 148, 186);
+    background: white;
     box-shadow: 0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
 }
 
@@ -58,7 +59,7 @@
 
 .login-html .sign-in:checked + .tab,
 .login-html .sign-up:checked + .tab {
-    color: #fff;
+    color: black;
     border-color: #1161ee;
 }
 
@@ -80,16 +81,14 @@
 /* Overview table */
 
 .styled-table {
-    /*border-collapse: collapse;*/
     font-size: 0.9em;
     font-family: sans-serif;
-    min-width: 580px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    margin-bottom: 30px;
+    margin: 0;
+    width: 100%;
 }
 
 .styled-table thead tr {
-    background-color: white;
+    background-color: rgba(141, 148, 186);
     color: black;
     text-align: center;
 }
@@ -101,7 +100,7 @@
 }
 
 .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid rgba(141, 148, 186);
 }
 
 .column {
@@ -125,6 +124,12 @@
     clear: both;
 }
 
+.matches-container {
+    height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .match-container {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     margin-bottom: 10px;
@@ -138,4 +143,103 @@
     height: 2px;
     margin: 60px 0 50px 0;
     background: rgba(255,255,255,.2);
+}
+
+.teams-list {
+    height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.button-1 {
+    background-color: rgba(141, 148, 186);
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    outline: none;
+    padding: 10px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    vertical-align: baseline;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.button-1:hover,
+.button-1:focus {
+    background-color: rgba(141, 148, 186);
+}
+
+
+/*Kebab menu*/
+
+.more-icon {
+    position: absolute;
+    margin-top: 10px;
+    margin-right: 5px;
+    float: right;
+}
+
+.kebab-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.more-icon {
+    color: #000;
+    cursor: pointer;
+}
+
+.menu-options {
+    position: absolute;
+    top: 25px;
+    right: -10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    display: none;
+}
+
+.menu-options ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-options ul li {
+    margin-bottom: 5px;
+}
+
+.menu-options ul li a {
+    color: #000;
+    text-decoration: none;
+}
+
+.menu-options ul li a:hover {
+    text-decoration: underline;
+}
+
+.left {
+    width: 90%;
+}
+
+.right {
+    width: 10%;
 }

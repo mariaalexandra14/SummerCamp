@@ -1,8 +1,92 @@
-﻿@{
+﻿@model CompetitionViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<head>
+    <link rel="stylesheet" href="~/css/home_page.css" asp-append-version="true" />
+@*    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
+</head>
+<body>
+    <div class="slideshow-container">
+        <div class="next-match-banner">
+            <a class="top-next-mc text-center">
+                <h5 class="mn-mc-titel" style="font-family: Sakana"> Next Competition </h5>
+                <hr>
+                <h4 style="font-family: Angelle; font-size: 20pt">@Model.Name</h4>
+                <div class="d-flex align-items-center justify-content-center mt-2">
+                    <div class="mc-details-top text-center">
+                        <h5 class="date" style="font-family: Angelle">
+                            @Model.StartDate.Value.ToString("dd/MM") - @Model.EndDate.Value.ToString("dd/MM")
+                        </h5>
+                        <p class="location-mc" style="font-family: Angelle; font-size: 20pt">@Model.Address</p>
+                    </div>
+                </div>
+            </a>
+
+            <a class="top-mc-starts mt-4">
+                <h5 class="mn-mc-titel text-center" style="font-family: Sakana"> Teams Ranking </h5>
+                <hr>
+
+                <ul class="list-unstyled d-flex flex-column justify-content-center w-100">
+                    @{
+                        int i = 1;
+                    }
+                    @foreach (var team in ViewData["Teams"] as IEnumerable<TeamRankingViewModel>)
+                    {
+                        <li class="d-flex align-items-center justify-content-between">
+                            <span class="ct-2" style="font-family: Angelle; font-size: 14pt">@i. @team.TeamViewModel.Name (@team.TeamViewModel.NickName) [Points: @team.Points] </span>
+                        </li>
+                        i++;
+                    }
+                </ul>
+
+            </a>
+
+        </div>
+        <div class="mySlides">
+            <img src="~/assets/images/1.jpg" style="width:100%">
+        </div>
+
+        <div class="mySlides">
+            <img src="~/assets/images/2.jpg" style="width:100%">
+        </div>
+
+        <div class="mySlides">
+            <img src="~/assets/images/3.jpg" style="width:100%">
+        </div>
+
+    </div>
+    <br>
+
+    <div style="text-align:center">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            setTimeout(showSlides, 5000); 
+        }
+    </script>
+</body>

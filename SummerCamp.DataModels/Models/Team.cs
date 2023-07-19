@@ -11,6 +11,8 @@ public partial class Team
 
     public string? Name { get; set; }
 
+    public int? CoachId { get; set; }
+
     public virtual Coach? Coach { get; set; }
 
     public virtual ICollection<CompetitionMatch> CompetitionMatchAwayTeams { get; set; } = new List<CompetitionMatch>();

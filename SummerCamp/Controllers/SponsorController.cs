@@ -86,8 +86,10 @@ namespace SummerCamp.Controllers
             {
                 _sponsorRepository.Delete(_mapper.Map<Sponsor>(sponsorViewModel));
                 _sponsorRepository.Save();
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View();
         }
     }

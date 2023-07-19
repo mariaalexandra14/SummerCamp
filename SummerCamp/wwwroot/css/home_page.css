@@ -1,0 +1,223 @@
+﻿/**{
+    user-select: none;
+}
+
+.competition-details {
+    width: 100%;
+    margin: auto;
+    max-width: 100%;
+    max-height: 200px;
+    position: relative;
+}
+
+.player-image {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}
+
+.login-html {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 60px 70px 50px 70px;
+    background: white;
+    box-shadow: 0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+}
+
+.login-html .sign-in,
+.login-html .sign-up,
+.login-form .group .check {
+    display: none;
+}
+
+.login-html .tab {
+    text-transform: uppercase;
+    font-family: sans-serif;
+}
+
+.login-html .tab {
+    font-size: 22px;
+    margin-right: 15px;
+    padding-bottom: 5px;
+    margin: 0 15px 10px 0;
+    display: inline-block;
+    border-bottom: 2px solid transparent;
+}
+
+.login-html .sign-in:checked + .tab,
+.login-html .sign-up:checked + .tab {
+    color: black;
+    border-color: #1161ee;
+}
+
+.login-html .sign-in:checked + .tab + .sign-up + .tab + .login-form .sign-in-htm {
+    transform: rotate(0);
+}
+
+.login-html .sign-up:checked + .tab + .login-form .sign-up-htm {
+    transform: rotate(0);
+}
+
+.column {
+    float: left;
+    height: 100%;
+}
+
+.left, .right {
+    width: 20%;
+    height: 100%;
+}
+
+.middle {
+    width: 60%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.item{
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    margin-bottom: 5px;
+}
+
+.item:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.team-view {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    margin-bottom: 10px;
+    width: 100%;
+    height: 100px;
+}
+
+.team-view:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.row-player {
+    content: "";
+    clear: both;
+    display: table;
+    align-items: center;
+    justify-content: center;
+}
+
+.column-player {
+    float: left;
+}
+
+.player-name {
+    align-self: center;
+    text-align: center;
+}
+
+
+*/
+
+/** {
+    user-select: none;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}*/
+
+@font-face {
+    font-family: "Amaris";
+    src: url(../assets/fonts/Amaris-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Reigo";
+    src: url(../assets/fonts/Reigo-Black.ttf);
+}
+@font-face {
+    font-family: "Sakana";
+    src: url(../assets/fonts/Sakana.ttf);
+}
+
+@font-face {
+    font-family: "Wasted";
+    src: url(../assets/fonts/Wasted-Vindey.ttf);
+}
+
+@font-face {
+    font-family: "Angelle";
+    src: url('../assets/fonts/Angelle Regular.otf');
+}
+
+@font-face {
+    font-family: "Gloriav";
+    src: url(../assets/fonts/GloriavTrial.otf);
+}
+
+@font-face {
+    font-family: "Renita";
+    src: url(../assets/fonts/RENITA.otf);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Verdana, sans-serif;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.slideshow-container {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+* {
+    user-select: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ct-2 {
+    color: white;
+}
+
+.h5 {
+    font-family: "Sakana";
+}
+
+.player-info {
+    width: 300px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    display: inline-block;
+    transform: translateY(-50%);
+    color: white;
+
+    text-decoration: none;
+    background: rgba(13, 04, 03, 88%);
+    border-radius: 8px;
+    display: grid;
+    align-content: center;
+}

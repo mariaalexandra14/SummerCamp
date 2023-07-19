@@ -104,3 +104,28 @@
     text-decoration: underline;
 }
 
+.button-1 {
+    background-color: rgba(141, 148, 186);
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    padding: 10px 16px;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    touch-action: manipulation;
+    margin-left: 780px;
+    margin-top: 100px;
+}
+
+.button-1:hover,
+.button-1:focus {
+    background-color: rgba(141, 148, 186);
+}

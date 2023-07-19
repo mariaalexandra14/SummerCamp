@@ -5,6 +5,6 @@
     [TotalPoints]   INT DEFAULT ((0)) NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([CompetitionId]) REFERENCES [dbo].[Competition] ([Id]),
-    FOREIGN KEY ([TeamId]) REFERENCES [dbo].[Team] ([Id])
+    FOREIGN KEY ([TeamId]) REFERENCES [dbo].[Team] ([Id]) ON DELETE SET NULL
 );
 

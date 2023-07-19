@@ -12,13 +12,19 @@ namespace SummerCamp.Controllers
     {
         private readonly ITeamRepository _teamRepository;
         private readonly ICoachRepository _coachRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly ISponsorRepository _sponsorRepository;
+        private readonly ICompetitionMatchRepository _competitionMatchRepository;
         private readonly IMapper _mapper;
 
-        public TeamController(ITeamRepository teamRepository, ICoachRepository coachRepository, IMapper mapper)
+        public TeamController(ITeamRepository teamRepository, ICoachRepository coachRepository, IMapper mapper, IPlayerRepository playerRepository, ISponsorRepository sponsorRepository, ICompetitionMatchRepository competitionMatchRepository)
         {
             _teamRepository = teamRepository;
             _coachRepository = coachRepository;
             _mapper = mapper;
+            _playerRepository = playerRepository;
+            _sponsorRepository = sponsorRepository;
+            _competitionMatchRepository = competitionMatchRepository;
         }
 
         public IActionResult Index()
@@ -31,31 +37,44 @@ namespace SummerCamp.Controllers
         // GET: Teams/Create
         public IActionResult Create()
         {
-            List<SelectListItem> coaches = new SelectList(_coachRepository.GetAll(), "Id", "FullName").ToList();
+            List<SelectListItem> coaches = new SelectList(_coachRepository.GetUnassignedCoaches(), "Id", "FullName").ToList();
             coaches.Insert(0, (new SelectListItem { Text = "Without coach", Value = "0" }));
             ViewData["Coaches"] = coaches;
 
-            return View();
+            var sponsors = _sponsorRepository.GetAll();
+            ViewData["Sponsors"] = new SelectList(sponsors, "Id", "Name");
+
+            var result = new TeamViewModel()
+            {
+                AvailableSponsors = _mapper.Map<IList<SponsorViewModel>>(sponsors)
+            };
+
+            return View(result);
         }
 
         // POST: Teams/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(TeamViewModel teamViewModel)
+        public JsonResult Create([FromBody] TeamViewModel teamViewModel)
         {
-            if (ModelState.IsValid)
+            foreach (var sponsorId in teamViewModel.SelectedSponsorsIds)
             {
-                _teamRepository.Add(_mapper.Map<Team>(teamViewModel));
-                _teamRepository.Save();
+                var teamSponsorViewModel = new TeamSponsorViewModel()
+                {
+                    SponsorId = sponsorId,
+                };
+                teamViewModel.TeamsSponsors.Add(teamSponsorViewModel);
             }
 
-            return RedirectToAction(nameof(Create));
+            _teamRepository.Add(_mapper.Map<Team>(teamViewModel));
+            _teamRepository.Save();
+
+            return Json(teamViewModel);
         }
 
         // GET: Teams/Edit/{id}
         public IActionResult Edit(int Id)
         {
-            List<SelectListItem> coaches = new SelectList(_coachRepository.GetAll(), "Id", "FullName").ToList();
+            List<SelectListItem> coaches = new SelectList(_coachRepository.GetUnassignedCoaches(), "Id", "FullName").ToList();
             coaches.Insert(0, (new SelectListItem { Text = "Without coach", Value = "0" }));
             ViewData["Coaches"] = coaches;
 
@@ -64,7 +83,7 @@ namespace SummerCamp.Controllers
             return View(_mapper.Map<TeamViewModel>(team));
         }
 
-        // POST: Teams/Edit/{id}
+        // PUT: Teams/Edit/{id}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(TeamViewModel teamViewModel)
@@ -94,13 +113,40 @@ namespace SummerCamp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(TeamViewModel teamViewModel)
         {
+            int teamId = teamViewModel.Id;
+            _competitionMatchRepository.DeleteTeamMatch(teamId);
+
             if (teamViewModel != null)
             {
+
                 _teamRepository.Delete(_mapper.Map<Team>(teamViewModel));
                 _teamRepository.Save();
                 return RedirectToAction(nameof(Index));
             }
             return View();
+        }
+
+        // GET: Competitions/Edit/{id}
+        public IActionResult Details(int id)
+        {
+            var team = _teamRepository.GetTeamWithPlayersCountriesAndCoach(id);
+
+            return View(_mapper.Map<TeamViewModel>(team));
+        }
+        public IActionResult DeletePlayerFromTeam(int playerId)
+        {
+            var player = _playerRepository.GetById(playerId);
+
+            if (player != null)
+            {
+                player.TeamId = null;
+                player.Team = null;
+
+                _playerRepository.Update(player);
+                _playerRepository.Save();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

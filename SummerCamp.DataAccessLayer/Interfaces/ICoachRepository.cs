@@ -4,7 +4,8 @@ namespace SummerCamp.DataAccessLayer.Interfaces
 {
     public interface ICoachRepository : IGenericRepository<Coach>
     {
-        IList<Coach> GetAllWithCountriesAndTeam();
+        IList<Coach> GetAllWithCountries();
         Coach? GetWithCountryAndTeam(int id);
+        List<Coach> GetUnassignedCoaches();
     }
 }

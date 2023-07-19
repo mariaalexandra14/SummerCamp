@@ -5,14 +5,13 @@
 }
 
 <head>
+    <link rel="stylesheet" href="~/css/create_team.css" asp-append-version="true" />
 </head>
 
-<h1>Edit</h1>
-
-<h4>Coach</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="base-container">
+    <div class="wrapper">
+        <h1 class="text">Edit team</h1>
+        <hr />
         <form asp-action="Edit" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -30,9 +29,9 @@
                 @Html.DropDownList("CoachId", (IEnumerable<SelectListItem>) ViewData["Coaches"], "Select a coach", new { @class = "form-control" })
                 <span asp-validation-for="CoachId" class="text-danger"></span>
             </div>
-
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="button-1" />
             </div>
         </form>
     </div>

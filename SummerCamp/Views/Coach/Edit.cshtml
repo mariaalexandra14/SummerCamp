@@ -5,15 +5,14 @@
 }
 
 <head>
+    <link rel="stylesheet" href="~/css/create_coach.css" asp-append-version="true" />
 </head>
 
-<h1>Edit</h1>
-
-<h4>Coach</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method = "post">
+<div class="base-container">
+    <div class="wrapper">
+         <h1 class="text">Edit coach</h1>
+        <hr />
+        <form asp-action="Edit" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FullName" class="control-label"></label>
@@ -26,24 +25,19 @@
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TeamId" class="control-label"></label>
-                @Html.DropDownList("TeamId", (IEnumerable<SelectListItem>) ViewData["Teams"], "Select a team", new { @class = "form-control" })
-                <span asp-validation-for="TeamId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
                 <label asp-for="CountryId" class="control-label">Country Name</label>
                 @Html.DropDownList("CountryId", (IEnumerable<SelectListItem>) ViewData["Countries"], "Select a country", new { @class = "form-control" })
                 <span asp-validation-for="CountryId" class="text-danger"></span>
             </div>
-          @*  <div class="form-group">
+            <div class="form-group">
                 <label asp-for="Picture" class="text">Profile picture</label>
-                <input type="file" class="form-control-file" name="photo">
+                <input type="file" class="form-control-file" name="photo" accept=".jpg,.jpeg,.png">
             </div>
-            *@
+            <input type="hidden" asp-for="Picture" />
+
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="button-1" />
             </div>
         </form>
     </div>

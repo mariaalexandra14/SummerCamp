@@ -9,5 +9,6 @@ namespace SummerCamp.DataAccessLayer.Interfaces
         IList<CompetitionTeam> GetTeamsFromCompetion(int id);
         IList<Competition> GetAllWithCompetitionTeams();
         Competition? GetCompetitionWithTeamsAndMatches(int id);
+        Competition? GetNextCompetition();
     }
 }

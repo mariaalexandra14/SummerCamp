@@ -5,41 +5,15 @@
 	ViewData["Title"] = "Index";
 }
 
-<!DOCTYPE html>
-<html>
 <head>
-	<link rel="stylesheet" href="~/css/coach_style.css" />
+    <link rel="stylesheet" href="~/css/coach_style.css" asp-append-version="true"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <style>
-        .button-1 {
-            background-color: #92AD40;
-            border-radius: 8px;
-            border-style: none;
-            box-sizing: border-box;
-            color: #FFFFFF;
-            cursor: pointer;
-            display: inline-block;
-            font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            height: 40px;
-            padding: 10px 16px;
-            text-align: center;
-            text-decoration: none;
-            transition: color 100ms;
-            touch-action: manipulation;
-            margin-left: 780px;
-            margin-top: 20px;
-        }
 
-        .button-1:hover,
-        .button-1:focus {
-            background-color: #879f3e;
-        }
-    </style>
 </head>
 <body>
     <button class="button-1" onclick="location.href='@Url.Action("Create", "Coach")'">Creaza antrenor</button>
+    <h1 style="text-align: center">Coaches</h1>
+    <hr />
 
     <div class="grid-container">
         @foreach (var item in Model)
@@ -87,16 +61,6 @@
                             }
                             
                         </div>
-                        <div class="row">
-                            @if (@item.Team == null)
-                            {
-                                <h2 class="coach_info">Without team</h2>
-                            }
-                            else
-                            {
-                                <h2 class="coach_info">Current Team: @item.Team.Name</h2>
-                            }
-                        </div>
                     </div>
                 </div>
                 <div class="column right">
@@ -121,4 +85,3 @@
 @section scripts {
     <script src="~/js/script.js"></script>
 }
-</html>

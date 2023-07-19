@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="~/css/create_player.css" asp-append-version="true" />
 </head>
 
-
-<div class="wrapper">
-    <div class="country-form">
+<div class="base-container">
+    <div class="wrapper">
         <h1 class="text">Create player</h1>
         <hr />
         <form asp-action="Create" asp-controller="Player" method="post" enctype="multipart/form-data">
@@ -31,10 +30,11 @@
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Position" class="control-label"></label>
-                <input asp-for="Position" class="form-control" />
+                <label asp-for="Position" class="control-label">Position</label>
+                @Html.DropDownListFor(model => model.Position, (IEnumerable<SelectListItem>)ViewData["Positions"], "Select a position", new { @class = "form-control" })
                 <span asp-validation-for="Position" class="text-danger"></span>
             </div>
+            <span class="text-danger">@Html.ValidationMessage("Error")</span>
             <div class="form-group">
                 <label asp-for="ShirtNumber" class="control-label"></label>
                 <input asp-for="ShirtNumber" class="form-control" />
@@ -55,13 +55,13 @@
                 <label asp-for="Picture" class="text">Profile picture</label>
                 <input type="file" class="form-control-file" name="photo">
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="button-1" />
             </div>
         </form>
     </div>
 </div>
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

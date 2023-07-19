@@ -1,17 +1,94 @@
 ﻿@using SummerCamp.DataModels.Models;
-@model Team
+@model TeamViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
 <head>
-    <link rel="stylesheet" href="~/css/create_coach.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/create_team.css" asp-append-version="true" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <script>
+        $(document).ready(function () {
+            const selectBtn = document.querySelector(".select-btn");
+            const items = document.querySelectorAll(".item");
+            const selectedTeamsInput = document.getElementById("selected-teams-input");
+
+            selectBtn.addEventListener("click", () => {
+                selectBtn.classList.toggle("open");
+            });
+
+            items.forEach((item) => {
+                item.addEventListener("click", () => {
+                    let numberofteams = 2;
+
+                    //if (item.classList.contains("checked")) {
+                    //    let checkedItems = document.querySelectorAll(".checked");
+
+                    //    if (checkedItems.length > numberofteams) {
+                    //        item.classList.remove("checked");
+                    //        return;
+                    //    }
+                    //} else {
+                    //    let checkedItems = document.querySelectorAll(".checked");
+                    //    if (checkedItems.length >= numberofteams) {
+                    //        return;
+                    //    }
+                    //}
+
+                    item.classList.toggle("checked");
+                    let checkedItems = document.querySelectorAll(".checked");
+                    let selectedTeamIds = Array.from(checkedItems).map(
+                        (item) => item.querySelector(".check-icon").id
+                    );
+                    selectedTeamsInput.value = JSON.stringify(selectedTeamIds);
+                });
+            });
+        });
+
+        function createTeam() {
+            var selectedTeams = [];
+            $(".item.checked").each(function () {
+                var teamId = $(this).attr("id");
+                console.log(teamId);
+                selectedTeams.push(teamId);
+            });
+
+            let model = {
+                Name: $("#Name").val(),
+                NickName: $("#NickName").val(),
+                SelectedSponsorsIds: selectedTeams,
+                CoachId: $("#CoachId").val(),
+            }
+
+            $.ajax({
+                type: 'POST',
+                timeout: 10000,
+                url: '@Url.Action("Create", "Team")',
+                contentType: "application/json; charset=utf-8",
+                processData: false,
+                cache: false,
+                data: JSON.stringify(model),
+                success: function (response) {
+                    alert("Echipa a fost creata cu succes");
+                    window.location.href = "/Team/Index";
+                },
+                error: function (error) {
+                    alert("A aparut o eroare");
+                    console.log(error);
+                }
+            });
+        }
+    </script>
 </head>
 
-
-<div class="wrapper">
-    <div class="country-form">
+<div class="base-container">
+    <div class="wrapper">
         <h1 class="text">Create team</h1>
         <hr />
         <form asp-action="Create" asp-controller="Team" method="post" enctype="multipart/form-data">
@@ -25,21 +102,32 @@
                 <input asp-for="NickName" class="form-control" />
                 <span asp-validation-for="NickName" class="text-danger"></span>
             </div>
-            @*<div class="dropdown-container">
-                <div class="dropdown-button noselect">
-                    <div class="dropdown-label">States</div>
-                    <div class="dropdown-quantity">(<span class="quantity">Any</span>)</div>
-                    <i class="fa fa-filter"></i>
-                </div>
-                <div class="dropdown-list" style="display: none;">
-                    <input type="search" placeholder="Search player" class="dropdown-search" />
-                    <ul></ul>
-                </div>
-            </div>*@
-            
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="CoachId" class="control-label"></label>
+                @Html.DropDownList("CoachId", (IEnumerable<SelectListItem>) ViewData["Coaches"], "Select a coach", new { @class = "form-control" })
+                <span asp-validation-for="CoachId" class="text-danger"></span>
             </div>
+
+            <div class="dropdown-container">
+                <div class="select-btn">
+                    <span class="btn-text">Select Sponsors</span>
+                    <span class="arrow-dwn">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                </div>
+                <ul class="list-items">
+                    @foreach (var sponsor in Model.AvailableSponsors)
+                    {
+                        <li class="item" id="@sponsor.Id">
+                            <span class="checkbox">
+                                <i class="fa-solid fa-check check-icon" id="@sponsor.Id"></i>
+                            </span>
+                            <span class="item-text">@sponsor.Name</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <button class="button-1" type="button" onclick="createTeam()">Create</button>
         </form>
     </div>
 </div>

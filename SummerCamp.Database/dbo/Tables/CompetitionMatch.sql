@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[CompetitionMatch] (
-    [Id]            INT NOT NULL,
+    [Id]            INT IDENTITY (1, 1) NOT NULL,
     [CompetitionId] INT NOT NULL,
     [HomeTeamId]    INT NOT NULL,
     [AwayTeamId]    INT NOT NULL,

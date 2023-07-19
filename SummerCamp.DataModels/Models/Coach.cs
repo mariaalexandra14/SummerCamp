@@ -15,9 +15,7 @@ public partial class Coach
 
     public int? CountryId { get; set; }
 
-    public int? TeamId { get; set; }
-
     public virtual Country? Country { get; set; }
 
-    public virtual Team? Team { get; set; }
+    public virtual ICollection<Team> Teams { get; set; } = new List<Team>();
 }
