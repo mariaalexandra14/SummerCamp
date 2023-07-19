@@ -37,7 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\CompetitionTeam\" />
     <Folder Include="wwwroot\assets\fonts\" />
     <Folder Include="wwwroot\assets\images\" />
     <Folder Include="wwwroot\assets\uploads\" />

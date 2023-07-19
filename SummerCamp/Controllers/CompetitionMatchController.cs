@@ -56,9 +56,6 @@ namespace SummerCamp.Controllers
             }
             else
             {
-                _competitionTeamRepository.UpdateScore(_mapper.Map<CompetitionMatch>(competitionMatch), competitionMatch.HomeTeamGoals, competitionMatch.AwayTeamGoals);
-                _competitionTeamRepository.Save();
-
                 _competitionMatchRepository.Add(_mapper.Map<CompetitionMatch>(competitionMatch));
                 _competitionMatchRepository.Save();
             }
@@ -96,13 +93,6 @@ namespace SummerCamp.Controllers
             }
             else
             {
-
-                // din context comp match
-                var oldCompetitionMatch = _competitionMatchRepository.GetById(competitionMatch.Id);
-
-                _competitionTeamRepository.UpdateScore(oldCompetitionMatch, competitionMatch.HomeTeamGoals, competitionMatch.AwayTeamGoals);
-                _competitionTeamRepository.Save();
-
                 _competitionMatchRepository.Update(_mapper.Map<CompetitionMatch>(competitionMatch));
                 _competitionMatchRepository.Save();
             }

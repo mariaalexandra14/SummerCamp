@@ -33,6 +33,12 @@ namespace SummerCamp.Controllers
         {
             var competitions = _competitionRepository.GetAll();
 
+            foreach (var competition in competitions)
+            {
+                var competitionTeams = _competitionTeamRepository.GetTeamsFromCompetition(competition.Id);
+                competition.NumberOfTeams = competitionTeams.Count();
+            }
+
             return View(_mapper.Map<IList<CompetitionViewModel>>(competitions));
         }
 
@@ -165,9 +171,16 @@ namespace SummerCamp.Controllers
         public IActionResult Details(int id)
         {
             var competitionTeams = _competitionRepository.GetTeamsFromCompetion(id).OrderByDescending(x => x.TotalPoints);
+            _competitionMatchRepository.UpdateTeamScore();
+            _competitionMatchRepository.Save();
+
             var competitionMatches = _competitionMatchRepository.GetCompetitionMatches(id);
             var competition = _competitionRepository.GetById(id);
             if (competition == null) return NotFound();
+
+
+            competition.NumberOfTeams = competitionTeams.Count();
+
 
             var competitionOverviewModel = new CompetitionOverviewModel()
             {

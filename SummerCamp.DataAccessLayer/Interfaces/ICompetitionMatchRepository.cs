@@ -7,5 +7,6 @@ namespace SummerCamp.DataAccessLayer.Interfaces
         IList<CompetitionMatch> GetCompetitionMatches(int competitonId);
         IList<CompetitionTeam> GetCompetitionTeams(int competitonId);
         void DeleteTeamMatch(int teamId);
+        void UpdateTeamScore();
     }
 }

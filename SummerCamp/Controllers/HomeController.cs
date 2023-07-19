@@ -15,9 +15,10 @@ namespace SummerCamp.Controllers
         private readonly IPlayerRepository _playerRepository;
         private readonly ITeamRepository _teamRepository;
         private readonly ICompetitionTeamRepository _competitionTeamRepository;
+        private readonly ICompetitionMatchRepository _competitionMatchRepository;
         private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, ICompetitionRepository competitionRepository, IMapper mapper, IPlayerRepository playerRepository, ITeamRepository teamRepository, ICompetitionTeamRepository competitionTeamRepository)
+        public HomeController(ILogger<HomeController> logger, ICompetitionRepository competitionRepository, IMapper mapper, IPlayerRepository playerRepository, ITeamRepository teamRepository, ICompetitionTeamRepository competitionTeamRepository, ICompetitionMatchRepository competitionMatchRepository)
         {
             _logger = logger;
             _competitionRepository = competitionRepository;
@@ -25,6 +26,7 @@ namespace SummerCamp.Controllers
             _playerRepository = playerRepository;
             _teamRepository = teamRepository;
             _competitionTeamRepository = competitionTeamRepository;
+            _competitionMatchRepository = competitionMatchRepository;
         }
 
         [HttpGet]
@@ -35,6 +37,9 @@ namespace SummerCamp.Controllers
 
             var teams = _teamRepository.GetAll();
             var teamsRanking = new List<TeamRankingViewModel>();
+
+            _competitionMatchRepository.UpdateTeamScore();
+            _competitionMatchRepository.Save();
 
             foreach (var team in teams)
             {

@@ -31,8 +31,45 @@ namespace SummerCamp.DataAccessLayer.Implementations
         {
             context.Set<CompetitionMatch>().Where(x => x.AwayTeamId == teamId || x.HomeTeamId == teamId).ExecuteDelete();
             context.Set<CompetitionTeam>().Where(x => x.TeamId == teamId).ExecuteDelete();
-            //context.Set<Player>().Where(x => x.TeamId == teamId).ExecuteDelete();
             context.Set<TeamSponsor>().Where(x => x.TeamId == teamId).ExecuteDelete();
+        }
+
+        public void DeletePreviousScores()
+        {
+            var competitionTeams = context.Set<CompetitionTeam>().ToList();
+            foreach (var competitionTeam in competitionTeams)
+            {
+                competitionTeam.TotalPoints = 0;
+            }
+        }
+
+        public void UpdateTeamScore()
+        {
+            DeletePreviousScores();
+
+            var competitionMatches = context.Set<CompetitionMatch>().ToList();
+
+            foreach (var competitionMatch in competitionMatches)
+            {
+                int competitionId = competitionMatch.CompetitionId;
+
+                var awayTeam = context.Set<CompetitionTeam>().Include(c => c.Team).FirstOrDefault(c => c.CompetitionId == competitionId && c.TeamId == competitionMatch.AwayTeamId);
+                var homeTeam = context.Set<CompetitionTeam>().Include(c => c.Team).FirstOrDefault(c => c.CompetitionId == competitionId && c.TeamId == competitionMatch.HomeTeamId);
+
+                if (competitionMatch.AwayTeamGoals == competitionMatch.HomeTeamGoals)
+                {
+                    awayTeam.TotalPoints += 1;
+                    homeTeam.TotalPoints += 1;
+                }
+                else if (competitionMatch.HomeTeamGoals > competitionMatch.AwayTeamGoals)
+                {
+                    homeTeam.TotalPoints += 3;
+                }
+                else
+                {
+                    awayTeam.TotalPoints += 3;
+                }
+            }
         }
     }
 }

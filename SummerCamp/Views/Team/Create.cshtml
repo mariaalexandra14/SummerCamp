@@ -25,22 +25,7 @@
 
             items.forEach((item) => {
                 item.addEventListener("click", () => {
-                    let numberofteams = 2;
-
-                    //if (item.classList.contains("checked")) {
-                    //    let checkedItems = document.querySelectorAll(".checked");
-
-                    //    if (checkedItems.length > numberofteams) {
-                    //        item.classList.remove("checked");
-                    //        return;
-                    //    }
-                    //} else {
-                    //    let checkedItems = document.querySelectorAll(".checked");
-                    //    if (checkedItems.length >= numberofteams) {
-                    //        return;
-                    //    }
-                    //}
-
+                 
                     item.classList.toggle("checked");
                     let checkedItems = document.querySelectorAll(".checked");
                     let selectedTeamIds = Array.from(checkedItems).map(
